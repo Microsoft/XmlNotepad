@@ -1,4 +1,4 @@
-﻿
+
 body, div {
     margin: 0;
     padding: 0;
@@ -8,63 +8,71 @@ body, div {
 
 body {
     /* Disable scrollbars and ensure that the body fills the window */
-    overflow: hidden;
     width: 100%;
     height: 100%;
+}
+table {
+    min-width: 100%;
+    table-layout: fixed;
 }
 
 #header {
     /* Provide scrollbars if needed and fix the header dimensions */
     overflow: auto;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 40px;
     padding: 10px;
     background: #333333;
     color:#CCE1E1;
+    top:0;
+    left:0;
+    z-index:1;
 }
 
-.match {
+.match { 
+    color:black;
 }
 
 .ignore {
-    color: #AAAAAA;
+    color: #CCE1E1;
 }
 
 .add {
-    background-color: yellow;
+    background-color: #dcffc6;
 }
 
 .moveto {
-    background-color: cyan;
+    background-color: #9be6fe;
     color: navy;
 }
 
 .remove {
-    background-color: red;
+    background-color: #ffcaca;
 }
 
 .movefrom {
-    background-color: cyan;
+    background-color: #d1e4ea;
     color: navy;
 }
 
 .change {
-    background-color: lightgreen;
+    background-color: #ffdb90;
 }
 
 .code {
     font-family: Courier New;
-    font-size: 12;
+    font-size: 12px;
+    word-break:break-word;
 }
 
 
 #main {
     /* Provide scrollbars if needed, position below header, and derive height from top/bottom */
-    overflow: auto;
-    position: absolute;
+    overflow-y: scroll;
+    //position: absolute;
     width: 100%;
-    top: 60px;
-    bottom: 0;
+    margin-top: 60px;
+   // bottom: 0;
     padding: 10px;
 }

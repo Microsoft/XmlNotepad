@@ -1,41 +1,156 @@
-﻿<script type="text/javascript">
+<script type="text/javascript">
     var current = -1;
+    var diffTog = true;
+    var addTog = true;
+    var changeTog = true;
+    var delTog = true;
+    var moveTog = true;
 
-    function onNext(){
+    function onNext() {
         var anchors = document.getElementsByTagName("a");
         if (current + 1 < anchors.length) {
-        current++;
-        var a = anchors[current];
-        a.scrollIntoView(true);
+            current++;
+            var a = anchors[current];
+            a.scrollIntoView(true);
         }
     }
     function onPrev() {
         var anchors = document.getElementsByTagName("a");
         if (current != 0) {
-        if (current == -1) {
-            current = 0;
+            if (current == -1) {
+                current = 0;
+            } else {
+                current--;
+            }
+            var a = anchors[current];
+            a.scrollIntoView(true);
+        }
+    }
+    var hidden = 0;
+
+
+    // it would be much better to do this in the main tool! 34000 lines of xml can take some time using the dom
+    // clas is the class we are trying to hide/show and tog is the toggle direction true=hide, false=show
+    function changeStyle(clas, tog) {
+        var xx = document.getElementsByTagName('TR');
+        // TODO: maybe we should split the array into parts for large documents as splice can be slow
+        const tr = Array.from(xx);
+        var trfiltered = null;
+        xx = null;
+        // if hidden >0 then filter
+        if (hidden != 0) {
+            if (tog) {
+                //remove anything from our array that isn't visable to speed up dom search
+                trfiltered = tr.filter(elm => elm.style.visibility != 'collapse')
+            } else {
+                //remove anything from our array that is visable to speed up dom search
+                trfiltered = tr.filter(elm => elm.style.visibility == 'collapse')
+            }
         } else {
-            current--;
+            trfiltered = tr;
         }
-        var a = anchors[current];
-        a.scrollIntoView(true);
+        // driving down through dom tree is faster than using class selectors
+        for (var i = 0; i < trfiltered.length; i++) {
+            var ok = 0;
+            var cnodes = 0;
+            var td = trfiltered[i].childNodes;
+            for (var e = 0; e < td.length; e++) {
+                var sp = td[e].childNodes;
+                for (var t = 0; t < sp.length; t++) {
+
+                    if (sp[t].nodeName == 'SPAN') {
+                        cnodes++;
+                        if (sp[t].classList.contains(clas)) {
+                            ok++;
+                        }
+                    } else if (sp[t].nodeName == 'A' || sp[t].nodeName == 'B') { // have to further dig in to children where links and bold is used
+                        for (var s = 0; s < sp[t].childNodes.length; s++) {
+                            var spelem = sp[t].childNodes[s];
+                            if (spelem.nodeName == 'SPAN') {
+                                cnodes++;
+
+                                if (spelem.classList.contains(clas)) {
+                                    ok++;
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+                if (tog) {
+                    // check that no other items that should be displayed are not excluded
+                    if (ok == cnodes && ok != 0) {
+                        trfiltered[i].style.visibility = 'collapse';
+                        hidden++;
+                    }
+                } else {
+                    if (ok == cnodes && ok != 0) {
+                        trfiltered[i].style.visibility = 'visible';
+                        hidden--;
+                    }
+
+                }
+
+            }
         }
+        if (tog) {
+            //strike out text on button and highlight it to show there is a filter
+            document.getElementsByClassName(clas + 'b')[0].style.border = "3px solid White";
+            document.getElementsByClassName(clas + 'b')[0].style.textDecoration = "line-through";
+        } else {
+            document.getElementsByClassName(clas + 'b')[0].style.border = "1px solid black";
+            document.getElementsByClassName(clas + 'b')[0].style.textDecoration = "none";
+        }
+
+
+        // update the number of hidden elements
+        document.getElementById('stats').innerHTML = hidden;
+        //check that we have scrollbars Y as on large documents (34000) they go missing on some browsers
+        document.getElementById('main').style.overflowY = 'Auto';
+    }
+
+
+    function onDiffOnly() {
+        changeStyle('match', diffTog);
+        diffTog = !diffTog;
+    }
+    function onAddOnly() {
+        changeStyle('add', addTog);
+        addTog = !addTog;
+    }
+    // not sure how useful change is in filtering terms, you can't really remove it from the context of the xml - removing matches really does the job here
+    function onChangeOnly() {
+        changeStyle('change', changeTog);
+        changeTog = !changeTog;
+    }
+    function onDelOnly() {
+        changeStyle('remove', delTog);
+        delTog = !delTog;
+    }
+    function onMoveOnly() {
+        changeStyle('movefrom', moveTog);
+        changeStyle('moveto', moveTog);
+        moveTog = !moveTog;
     }
 </script>
 <body>
     <div id="header">
-        <b>Legend:</b> <span class='add' style="padding:5px;color:black;">added</span>&nbsp;&nbsp;
-        <span class='remove' style="padding:5px;color:black;">removed</span>&nbsp;&nbsp;
-        <span class='change' style="padding:5px;color:black;">changed</span>&nbsp;&nbsp;
-        <span class='movefrom' style="padding:5px;color:black;">moved from</span>&nbsp;&nbsp;
-        <span class='moveto' style="padding:5px;color:black;">moved to</span>&nbsp;&nbsp;
-        <span class='ignore' style="padding:5px;">ignored</span>
-        <input type="button" value="next" onclick="onNext()" style='padding:5px 10px' />
-        <input type="button" value="prev" onclick="onPrev()" style='padding:5px 10px' />
+        <input type="button" class='addb add' style="padding:5px;color:black;" value="Added" onclick="onAddOnly()">&nbsp;&nbsp;
+        <input type="button" class='removeb remove' style="padding:5px;color:black;" onclick="onDelOnly()" value="Removed">&nbsp;&nbsp;
+
+        <input type="button" class='changeb change' style="padding:5px;color:black;" onclick="onChangeOnly()" value="Changed">&nbsp;&nbsp;
+        <input type="button" class='movefromb movefrom' style="padding:5px;color:black;" onclick="onMoveOnly()" value="Moved From">&nbsp;&nbsp;
+        <input type="button" class='movetob moveto' style="padding:5px;color:black;" onclick="onMoveOnly()" value="Moved To">&nbsp;&nbsp;
+        <input type="button" class='matchb match' style="padding:5px;" onclick="onDiffOnly()" value="Matched">&nbsp;&nbsp;
+        <input type="button" value="Previous" onclick="onPrev()" style='padding:5px 10px' />
+        <input type="button" value="Next" onclick="onNext()" style='padding:5px 10px' />
+        &nbsp;&nbsp;&nbsp;<span style="color:#fff">Fliterd Elements: <span id="stats"></span></span>
+
     </div>
     <div id="main">
-        <table border='0' width='100%' style='table-layout:fixed;'>
-            <COL WIDTH='40'>
-            <COL WIDTH='50%'>
-            <COL WIDTH='50%'>
+        <table border='0' width='100vw' style='table-layout:fixed;'>
+            <COL WIDTH='2vw'>
+            <COL WIDTH='49vw'>
+            <COL WIDTH='49vw'>
 
