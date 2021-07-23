@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://microsoft.github.io/XmlNotepad/help/menus/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Menus - XmlNotepad</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../css/main.css" rel="stylesheet">
+    <link href="../../css/syntax.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Menus", url: "#_top", children: [
+              {title: "File", url: "#file" },
+              {title: "Edit", url: "#edit" },
+              {title: "View", url: "#view" },
+              {title: "Insert", url: "#insert" },
+              {title: "Window", url: "#window" },
+              {title: "Help", url: "#help" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script>
+      <script src="https://www.googletagmanager.com/gtag/js?id=UA-89203408-1"></script>
+      <script src="https://consentdeliveryfd.azurefd.net/mscc/lib/v2/wcp-consent.js"></script>
+      <script src="../../assets/js/cookies.js"></script>
+      <script src="../../assets/js/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<div id="cookie-banner"></div>
+
+
+<div class="wrapper wm-page-content">
+  <div class="container-fluid">
+    <a name="_top"></a>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../find/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../find/" class="btn btn-xs btn-link">
+        Find
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../keyboard/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../keyboard/" class="btn btn-xs btn-link">
+        Keyboard
+      </a>
+    </div>
+    
+  </div>
+
+      
+
+      <h2 id="menus">Menus<a class="headerlink" href="#menus" title="Permanent link">#</a></h2>
+<p>XML Notepad provides the following menu commands.</p>
+<h3 id="file">File<a class="headerlink" href="#file" title="Permanent link">#</a></h3>
+<p>The file menu contains the following commands:</p>
+<ul>
+<li><strong>New</strong> Start a new XML document.</li>
+<li><strong>Open</strong> Open an XML document for editing.  Can also open .csv and .htm files converting them to XML.</li>
+<li><strong>Reload</strong> Discard any edits you've made and reload the file as it exists on disk.</li>
+<li><strong>Save</strong> Save any edits you've made to the file disk.</li>
+<li><strong>Save As</strong> Save the current document to a different file name on disk.</li>
+<li><strong>Export Errors</strong> Save the contents of the Error List in an XML format.</li>
+<li><strong>Recent Files</strong> This menu provides quick access to the last 10 XML documents you've edited.</li>
+<li><strong>Exit</strong> Closes XML Notepad.</li>
+</ul>
+<h3 id="edit">Edit<a class="headerlink" href="#edit" title="Permanent link">#</a></h3>
+<p>The edit menu contains the following commands:</p>
+<ul>
+<li><strong>Undo</strong> Undo the previous edit operation.</li>
+<li><strong>Redo</strong> Reverses the last undo operation.</li>
+<li><strong>Cut</strong> Copy the selected node to the clipboard (and its children) and remove that node from the tree. See <a href="../clipboard/">Clipboard support</a>.</li>
+<li><strong>Copy</strong> Copy the selected node to the clipboard (and its children).</li>
+<li><strong>Paste</strong> Parse the XML in the clipboard and create new nodes in the tree under the selected node.</li>
+<li><strong>Delete</strong> Delete the selected node.</li>
+<li><strong>Insert</strong> Insert a new node of the same type (element, attribute, processing instruction, comment, etc) as the currently selected node.  This makes it easy to build a list of nodes that have the same type.</li>
+<li><strong>Duplicate</strong> Clone the selected node (and its children) and insert the clone as the next sibling.</li>
+<li><strong>Change To</strong> Changes the selected node to the specified node type.</li>
+<li><strong>Goto Definition</strong> Open the selected XInclude or open the XML Schema that defines the selected node in a new instance of XML Notepad.</li>
+<li><strong>Expand XIncludes</strong> Expand all XInlcude elements with the contents of the XML documents they point to.</li>
+<li><strong>Nudge</strong> Moves the selected node:<ul>
+<li><strong>Up</strong>     Before the previous sibling, or before the parent if there are no previous siblings.</li>
+<li><strong>Down</strong>     After the next sibling, or after the parent if there is no next sibling.</li>
+<li><strong>Left</strong>     Before the parent if this is the first child, otherwise after the parent.</li>
+<li><strong>Right</strong> so it becomes the last child of the previous sibling.</li>
+</ul>
+</li>
+<li><strong>Find...</strong> Brings up the <a href="../find/">find dialog</a>.</li>
+<li><strong>Replace...</strong> Brings up the <a href="../find/">replace dialog</a>.</li>
+<li><strong>Incremental Search...</strong> Allows you to instantly find what you type.</li>
+</ul>
+<h3 id="view">View<a class="headerlink" href="#view" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Expand All</strong> Expand all collapsed nodes in the entire tree. See "Expand" item on the context menu if you just want to expand the selected node.</li>
+<li><strong>Collapse all</strong> Collapse all expanded nodes in the entire tree (except the root node). See "Collapse" item on the context menu if you just want to collapse the selected node.</li>
+<li><strong>Status Bar</strong> Toggle the visibility of the status bar.</li>
+<li><strong>Source</strong> Show the current XML document in text form using "Notepad".</li>
+<li><strong>Options...</strong> Display the <a href="../options/">Options Dialog</a>.</li>
+<li><strong>Schemas...</strong> Display the <a href="../schemas/">Schemas Dialog</a>.</li>
+<li><strong>Next Error</strong> Navigate to the next error in the list of errors.</li>
+<li><strong>Compare XML Files...</strong> Launches XML Diff which compares the current document you are editing with another document on disk and displays the results.</li>
+</ul>
+<h3 id="insert">Insert<a class="headerlink" href="#insert" title="Permanent link">#</a></h3>
+<p>Contains commands for inserting various node types. You can insert before, after or as a child of the currently selected node. Only those insert operations that result in well formed document will be enabled.</p>
+<h3 id="window">Window<a class="headerlink" href="#window" title="Permanent link">#</a></h3>
+<p>Provides a "New window" command for launching another instance of XML Notepad.</p>
+<h3 id="help">Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
+<p>Bring up the help contents and index as well as the About Dialog.</p>
+
+    <br>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../find/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../find/" class="btn btn-xs btn-link">
+        Find
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../keyboard/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../keyboard/" class="btn btn-xs btn-link">
+        Keyboard
+      </a>
+    </div>
+    
+  </div>
+
+      <br>
+  </div>
+</div>
+
+<footer class="wm-page-content">
+
+  
+<div class='footer-content'>
+  <div class="container-fluid">
+    <div class="col-sm-8 text-left footnote-copy">
+       XML Notepad
+    </div>
+    <div class="col-sm-4 text-right footnote-copy">
+      <ul class="list-unstyled list-inline">
+        <li><a href="https://www.microsoft.com/" target="_blank"><img class="img-responsive" width="140" src="http://microsoft.github.io/XmlNotepad/assets/images/microsoft.svg" alt="Microsoft"> </a></li>
+      </ul>
+    </div>
+  </div>
+  <li><span id="copyright"></span></li>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/noraj/mkdocs-windmill-dark">Windmill Dark</a> theme by noraj.</p>
+</div>
+
+</footer>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('table').each(function () {
+        $(this).addClass("table");
+        $(this).addClass("table-bordered");
+        $(this).addClass("table-striped");
+        $(this).addClass("table-condensed");
+      });
+
+    });
+</script>
+
+</body>
+</html>

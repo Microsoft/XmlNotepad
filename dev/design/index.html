@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://microsoft.github.io/XmlNotepad/dev/design/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Design - XmlNotepad</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../css/main.css" rel="stylesheet">
+    <link href="../../css/syntax.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "XML Notepad Design", url: "#_top", children: [
+              {title: "Model", url: "#model" },
+              {title: "Validation, IntelliSense, and Custom Editors", url: "#validation-intellisense-and-custom-editors" },
+              {title: "Infinite Undo/Redo", url: "#infinite-undoredo" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script>
+      <script src="https://www.googletagmanager.com/gtag/js?id=UA-89203408-1"></script>
+      <script src="https://consentdeliveryfd.azurefd.net/mscc/lib/v2/wcp-consent.js"></script>
+      <script src="../../assets/js/cookies.js"></script>
+      <script src="../../assets/js/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<div id="cookie-banner"></div>
+
+
+<div class="wrapper wm-page-content">
+  <div class="container-fluid">
+    <a name="_top"></a>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="../" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+  </div>
+
+      
+
+      <h1 id="xml-notepad-design">XML Notepad Design<a class="headerlink" href="#xml-notepad-design" title="Permanent link">#</a></h1>
+<p>By <a href="http://lovettsoftware.com/">Chris Lovett</a>, Microsoft</p>
+<p>In the github repo you'll find the core <code>XmlNotepad</code> dll project, an <code>Application</code> project that
+builds XmlNotepad.exe, and some setup projects like <code>XmlNotepadSetup</code> which builds the .msi
+installer, and the <code>UnitTests</code> project for testing XML Notepad.</p>
+<p>The following DGML diagram shows the relationships between the main UI classes. The main form
+contains all the UI elements from the TaskList to the main XmlTreeView with Resizers in between;
+it's the launching point for the dialogs such as FormSearch, FormSchemas, FormOption, and FormAbout.</p>
+<p><img alt="ui" src="../../assets/images/ui.png" /></p>
+<p>The main tab control contains the XmlTreeView and the XsltViewer for showing XSL output. The
+XmlTreeView contains a TreeView on the left and a NodeTextView on the right and coordinates
+scrolling between these two views. Both the TreeView and NodeTextView provide the same IntelliSense
+editing functionality using a TextEditorOverlay component. The XmlTreeView implements IFindTarget,
+which is used by the Find dialog (FormSearch) to implement find/replace functionality.</p>
+<p><img alt="find" src="../../assets/images/ifindtarget.png" /></p>
+<p>The Find dialog supports full text, regex, or XPath expressions and can filter by names or values.</p>
+<h2 id="model">Model<a class="headerlink" href="#model" title="Permanent link">#</a></h2>
+<p>The core data model behind the UI is <code>System.Xml.XmlDocument</code> and it's <code>XmlNode</code> objects.  These
+nodes are wrapped by <code>TreeNode</code> UI objects. To facilitate support of the XML Include spec there is a
+custom reader that processes XML Includes and there is also a custom DomLoader that keeps track of
+line information for error messages.</p>
+<p><img alt="model" src="../../assets/images/model.png" /></p>
+<h2 id="validation-intellisense-and-custom-editors">Validation, IntelliSense, and Custom Editors<a class="headerlink" href="#validation-intellisense-and-custom-editors" title="Permanent link">#</a></h2>
+<p>The biggest new feature is IntelliSense, which is driven by XML Schema information provided via the
+SchemaCache. For example, if your element or attribute is defined by an XSD simpleType and this
+simpleType contains a list of enumeration facets, then you will get a drop-down like this:</p>
+<p><img alt="intellisense" src="../../assets/images/intellisense.png" /></p>
+<p>The way this works is that the Checker runs after each edit operation to validate the document and
+report errors in the TaskList. This process also puts <code>System.Xml.Schema.XmlSchemaType</code> information
+on each element and attribute in the XmlDocument; then, when editing the value of that node, the
+TextEditorOverlay uses the <code>XmlIntelliSenseProvider</code> to get back a list of possible values. In the
+above example it returns the values from the simpleType enumeration facets. For element name
+IntelliSense in the tree view, the <code>XmlIntelliSenseProvider</code> invokes the Checker again, captures
+GetExpectedParticles and GetExpectedAttributes on the <code>System.Xml.Schema.XmlSchemaValidator</code>, and
+uses that to provide IntelliSense.</p>
+<p><img alt="plugins" src="../../assets/images/plugins.png" /></p>
+<p>The <code>TextEditorOverlay</code> also supports custom editors like the <code>DateTimeEditor</code> or the <code>UriBuilder</code>
+or <code>ColorBuilder</code>. There are two types of custom editors: IXmlEditors, which are inline editors that
+replace the default TextBox, and IXmlBuilders, which are popup dialogs like the OpenFileDialog or
+ColorDialog. The type of editor is derived from the schema type information — "xs:date", "xs:time",
+"xs:datetime" results in the DateTimeEditor, and "xs:anyURI" results in the UriBuilder. You can also
+annotate the schema with a custom "vs:builder" attribute in the
+<code>http://schemas.microsoft.com/Visual-Studio-IntelliSense</code> namespace. See the Help content for more
+information.</p>
+<h2 id="infinite-undoredo">Infinite Undo/Redo<a class="headerlink" href="#infinite-undoredo" title="Permanent link">#</a></h2>
+<p>To implement undo/redo XML Notepad follows a common design pattern of Command objects with Undo and
+Redo methods. Commands operate on both a <code>TreeNode</code> and an <code>XmlNode</code> because some commands like
+<code>InsertNode</code> don't have an <code>XmlNode</code> yet until they are performed but the command needs to know
+where in the tree this new node will be inserted and during <code>Undo</code> where it should be removed. The
+UndoManager collects these in a list. Then the state of the UndoManager controls the
+enabled/disabled state of the Undo/Redo MenuItems. When the user selects the Undo menu item, the
+Undo method is called on the active command, and that command is pushed onto the Redo stack.</p>
+<p><img alt="undo.png" src="../../assets/images/undo.png" /></p>
+<p>Some operations in the editor cause many edits in the tree including the replace-all operation and
+editing the value of a namespace attribute. (When you change the value of a namespace attribute.
+every XmlNode bound to that namespace needs to be reconstructed with a new namespace URI, which can
+obviously affect a lot of nodes in the tree!) So, to make these operations one atomic undo
+operation, there is a <code>CompoundCommand</code> object that contains a list of smaller edit commands, and
+this CompoundCommand is put into the <code>UndoManager</code>.</p>
+<p>Other simpler command objects include the following, which all operate on XmlTreeNode and XmlNode
+objects:</p>
+<p><img alt="commands.png" src="../../assets/images/commands.png" /></p>
+<p>The PasteCommand is special because it takes random XML text off the clipboard and parses it in
+context of the currently selected element in the tree, inheriting the namespaces in scope. The
+helper class TreeData uses the special XmlTextReader constructor that takes an XmlParserContext as
+input.</p>
+<h3 id="accessibility">Accessibility<a class="headerlink" href="#accessibility" title="Permanent link">#</a></h3>
+<p>In order to make testing possible using <code>System.Windows.Automation</code> there are some custom
+<code>AccessibleObject</code> implementations inside the TreeView and NodeTextView. See <code>AccessibleNode</code> and
+<code>AccessibleNodeTextViewNode</code>. These accessibility classes should also make Windows accessibility
+features work better with those custom views.</p>
+<h3 id="missing-documentation">Missing Documentation?<a class="headerlink" href="#missing-documentation" title="Permanent link">#</a></h3>
+<p>If you want more detailed documentation on some aspect of XML Notepad please create a new <a href="https://github.com/microsoft/XmlNotepad/issues">GitHub issue</a>.</p>
+
+    <br>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="../" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../" class="btn btn-xs btn-link">
+        Overview
+      </a>
+    </div>
+    
+  </div>
+
+      <br>
+  </div>
+</div>
+
+<footer class="wm-page-content">
+
+  
+<div class='footer-content'>
+  <div class="container-fluid">
+    <div class="col-sm-8 text-left footnote-copy">
+       XML Notepad
+    </div>
+    <div class="col-sm-4 text-right footnote-copy">
+      <ul class="list-unstyled list-inline">
+        <li><a href="https://www.microsoft.com/" target="_blank"><img class="img-responsive" width="140" src="http://microsoft.github.io/XmlNotepad/assets/images/microsoft.svg" alt="Microsoft"> </a></li>
+      </ul>
+    </div>
+  </div>
+  <li><span id="copyright"></span></li>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/noraj/mkdocs-windmill-dark">Windmill Dark</a> theme by noraj.</p>
+</div>
+
+</footer>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('table').each(function () {
+        $(this).addClass("table");
+        $(this).addClass("table-bordered");
+        $(this).addClass("table-striped");
+        $(this).addClass("table-condensed");
+      });
+
+    });
+</script>
+
+</body>
+</html>

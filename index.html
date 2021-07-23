@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="None">
+    
+    <link rel="canonical" href="https://microsoft.github.io/XmlNotepad/">
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>XmlNotepad</title>
+    <link href="./css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="./css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/highlight.css">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/syntax.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/bootstrap-3.3.7.min.js"></script>
+    <script src="./js/highlight.pack.js"></script>
+    
+      <script src="./js/elasticlunr.min.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '.';
+      var is_top_frame = (window === window.parent);
+        
+        var pageToc = [
+          {title: "XML Notepad", url: "#_top", children: [
+              {title: "Handy features include:", url: "#handy-features-include" },
+          ]},
+        ];
+
+    </script>
+    <script src="./js/base.js"></script>
+      <script src="https://www.googletagmanager.com/gtag/js?id=UA-89203408-1"></script>
+      <script src="https://consentdeliveryfd.azurefd.net/mscc/lib/v2/wcp-consent.js"></script>
+      <script src="assets/js/cookies.js"></script>
+      <script src="assets/js/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<div id="cookie-banner"></div>
+<nav class="navbar wm-page-top-frame">
+  <div class="container-fluid wm-top-container">
+    
+    <div class="wm-top-tool pull-right wm-vcenter">
+      <form class="dropdown wm-vcentered" id="wm-search-form" action="./search.html">
+        
+        <button id="wm-search-show" class="btn btn-sm btn-default" type="submit"
+          ><i class="fa fa-search" aria-hidden="true"></i></button>
+
+        <div class="input-group input-group-sm wm-top-search">
+          <input type="text" name="q" class="form-control" id="mkdocs-search-query" placeholder="Search" autocomplete="off">
+          <span class="input-group-btn" role="search">
+            
+            <button class="btn btn-default dropdown-toggle collapse" data-toggle="dropdown" type="button"><span class="caret"></span></button>
+            <ul id="mkdocs-search-results" class="dropdown-menu dropdown-menu-right"></ul>
+            <button id="wm-search-go" class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="wm-top-tool wm-vcenter pull-right wm-small-left">
+      <button id="wm-toc-button" type="button" class="btn btn-sm btn-default wm-vcentered"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+    </div>
+
+    
+    
+
+    
+    <a href="" class="wm-top-brand wm-top-link wm-vcenter">
+      
+      <div class="wm-top-title">
+        XmlNotepad<br>
+        
+      </div>
+    </a>
+  </div>
+</nav>
+  <div id="main-content" class="wm-page-top-frame">
+    
+<nav class="wm-toc-pane">
+  
+  <ul class="wm-toctree">
+        <li class="wm-toc-li wm-toc-lev1 "><a href="" class="wm-article-link wm-toc-text">Home</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 "><a href="install/" class="wm-article-link wm-toc-text">Install</a>
+</li>
+        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Help</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/overview/" class="wm-article-link wm-toc-text">Overview</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/keyboard/" class="wm-article-link wm-toc-text">Keyboard</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/menus/" class="wm-article-link wm-toc-text">Menus</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/find/" class="wm-article-link wm-toc-text">Find</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/options/" class="wm-article-link wm-toc-text">Options</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/intellisense/" class="wm-article-link wm-toc-text">Intellisense</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/schemas/" class="wm-article-link wm-toc-text">Schemas</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/validation/" class="wm-article-link wm-toc-text">Validation</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/customeditors/" class="wm-article-link wm-toc-text">Custom Editors</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/clipboard/" class="wm-article-link wm-toc-text">Clipboard</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/updates/" class="wm-article-link wm-toc-text">Updates</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="help/analytics/" class="wm-article-link wm-toc-text">Analytics</a>
+</li>
+  </ul>
+</li>
+
+        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Development</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev2 "><a href="dev/" class="wm-article-link wm-toc-text">Overview</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="dev/design/" class="wm-article-link wm-toc-text">Design</a>
+</li>
+  </ul>
+</li>
+
+  </ul>
+</nav>
+
+    <div class="wm-content-pane">
+      <iframe class="wm-article" name="article"></iframe>
+    </div>
+  </div>
+
+<div class="wrapper wm-page-content">
+  <div class="container-fluid">
+    <a name="_top"></a>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="install/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="install/" class="btn btn-xs btn-link">
+        Install
+      </a>
+    </div>
+    
+  </div>
+
+      
+
+      <h1 id="xml-notepad">XML Notepad<a class="headerlink" href="#xml-notepad" title="Permanent link">#</a></h1>
+<p>XML Notepad provides a simple intuitive <a href="help/overview/">User Interface</a> for browsing and editing XML documents.</p>
+<p><a href="https://youtu.be/bmchxiu_oV0"><img alt="image" src="assets/images/help.png" /></a></p>
+<p>XML Notepad is the result of a promise Chris Lovett made to a friend at Microsoft. The original XML
+Notepad shipped in back in 1998, written by Murray Low in C++. Later on it fell behind in support
+for XML standards and, because we didn't have time to fix it, we pulled the downloader. But Murray
+apparently did such a nice job that MSDN was inundated with requests to put the notepad back up, so
+they asked for a replacement.</p>
+<p>Chris was working on System.Xml in C# in 1999, so he figured he could crank out a replacement using
+the .NET Framework pretty quickly. Well, the problem was it was one of those side projects on his
+"one-day" list — you know how that goes! Fortunately, another good friend, Michael Corning, took
+interest in it, helped hold his feet to the fire, and also added some cool features himself. Dan
+Doris also took pity on Chris and helped identify some great bugs. So here we are, a nifty tool that
+should be useful to those who want a quick way to view and edit XML documents.</p>
+<p>There have been over 3 million downloads since then - so thanks to everyone who tried it out!</p>
+<h3 id="handy-features-include">Handy features include:<a class="headerlink" href="#handy-features-include" title="Permanent link">#</a></h3>
+<ul>
+<li>Ability to load .csv and .htm files converting them to XML.</li>
+<li>Tree View synchronized with Node Text View for quick editing of node names and values.</li>
+<li>Incremental search (Ctrl+I) in both tree and text views, so as you type it navigates to matching nodes.</li>
+<li><a href="help/clipboard/">Cut/copy/paste</a> with full namespace support.</li>
+<li><a href="help/dragdrop/">Drag/drop support</a> for easy manipulation of the tree, even across different instances of XML Notepad and from the file system.</li>
+<li>Infinite undo/redo for all edit operations.</li>
+<li>In place popup multi-line editing of large text node values.</li>
+<li>Configurable fonts and colors via the <a href="help/options/">options dialog</a>.</li>
+<li>Full <a href="help/find/">find/replace dialog</a> with support for regex and XPath.</li>
+<li>Good performance on large XML documents, loading a 3mb document in about one second.</li>
+<li>Instant <a href="help/validation/">XML schema validation</a> while you edit with errors and warnings shown in the task list window.</li>
+<li><a href="help/intellisense/">Intellisense</a> based on expected elements and attributes and enumerated simple type values.</li>
+<li>Support for <a href="help/customeditors/">custom editors</a> for date, dateTime and time datatypes and other types like color.</li>
+<li>Handy nudge tool bar buttons for quick movement of nodes up and down the tree.</li>
+<li>Inplace HTML viewer for processing <code>&lt;?xml-stylesheets</code> instructions.</li>
+<li>Built-in XML Diff tool.</li>
+<li>Support for XInclude.</li>
+<li>Handy "XML statistics" tool to summarize info about your XML documents.</li>
+<li>Dynamic help from XSD annotations.</li>
+<li>Goto definition to navigate includes and XSD schema information.</li>
+<li>Vibrant community with many <a href="help/updates/">updates and bug fixes</a>.</li>
+</ul>
+<p>Go to <a href="install/">installer page</a>.</p>
+<p>The source code is available at <a href="https://github.com/microsoft/XmlNotepad">https://github.com/microsoft/XmlNotepad</a>.</p>
+<p>Please provide feedback or any issues you have using the <a href="https://github.com/microsoft/XmlNotepad/issues">XML Notepad GitHub
+issues</a> list.</p>
+<p>See <a href="dev/">development</a> information on how to build XML Notepad from source.</p>
+<p>For more information see the <a href="https://opensource.microsoft.com/codeofconduct/faq/">Code of Conduct
+FAQ</a> or contact
+<a href="mailto:opencode@microsoft.com">opencode@microsoft.com</a> with any additional questions or comments.</p>
+
+    <br>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="install/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="install/" class="btn btn-xs btn-link">
+        Install
+      </a>
+    </div>
+    
+  </div>
+
+      <br>
+  </div>
+</div>
+
+<footer class="wm-page-content">
+
+  
+<div class='footer-content'>
+  <div class="container-fluid">
+    <div class="col-sm-8 text-left footnote-copy">
+       XML Notepad
+    </div>
+    <div class="col-sm-4 text-right footnote-copy">
+      <ul class="list-unstyled list-inline">
+        <li><a href="https://www.microsoft.com/" target="_blank"><img class="img-responsive" width="140" src="http://microsoft.github.io/XmlNotepad/assets/images/microsoft.svg" alt="Microsoft"> </a></li>
+      </ul>
+    </div>
+  </div>
+  <li><span id="copyright"></span></li>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/noraj/mkdocs-windmill-dark">Windmill Dark</a> theme by noraj.</p>
+</div>
+
+</footer>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('table').each(function () {
+        $(this).addClass("table");
+        $(this).addClass("table-bordered");
+        $(this).addClass("table-striped");
+        $(this).addClass("table-condensed");
+      });
+
+    });
+</script>
+
+</body>
+</html>
+<!--
+MkDocs version : 1.2.2
+Build Date UTC : 2021-07-23 16:15:02.720927+00:00
+-->

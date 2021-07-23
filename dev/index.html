@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://microsoft.github.io/XmlNotepad/dev/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Overview - XmlNotepad</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/syntax.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "XmlNotepad Development", url: "#_top", children: [
+              {title: "Build the code", url: "#build-the-code" },
+              {title: "Debug the app", url: "#debug-the-app" },
+              {title: "Test the app", url: "#test-the-app" },
+              {title: "BuildTasks", url: "#buildtasks" },
+              {title: "Publish the ClickOnce installer", url: "#publish-the-clickonce-installer" },
+              {title: "Build the setup .msi installer", url: "#build-the-setup-msi-installer" },
+              {title: "Build the winget setup package", url: "#build-the-winget-setup-package" },
+              {title: "Publishing the bits to Azure Blob Store", url: "#publishing-the-bits-to-azure-blob-store" },
+              {title: "Design", url: "#design" },
+              {title: "Issues", url: "#issues" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script>
+      <script src="https://www.googletagmanager.com/gtag/js?id=UA-89203408-1"></script>
+      <script src="https://consentdeliveryfd.azurefd.net/mscc/lib/v2/wcp-consent.js"></script>
+      <script src="../assets/js/cookies.js"></script>
+      <script src="../assets/js/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<div id="cookie-banner"></div>
+
+
+<div class="wrapper wm-page-content">
+  <div class="container-fluid">
+    <a name="_top"></a>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="design/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="design/" class="btn btn-xs btn-link">
+        Design
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../help/analytics/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../help/analytics/" class="btn btn-xs btn-link">
+        Analytics
+      </a>
+    </div>
+    
+  </div>
+
+      
+
+      <h2 id="xmlnotepad-development">XmlNotepad Development<a class="headerlink" href="#xmlnotepad-development" title="Permanent link">#</a></h2>
+<p>You can build and test XML Notepad using <a href="https://visualstudio.microsoft.com/downloads/">Visual Studio 2019</a>. It uses
+.NET frameworks, so be sure to install the ".NET desktop development" feature when using the Visual Studio Installer.
+XML Notepad targets .NET Framework version 4.7.2 which is the default target for VS 2019.</p>
+<h3 id="build-the-code">Build the code<a class="headerlink" href="#build-the-code" title="Permanent link">#</a></h3>
+<p>First clone the repo:</p>
+<pre><code>git clone https://github.com/microsoft/XmlNotepad.git
+</code></pre>
+<p>Then:</p>
+<ul>
+<li>Load <code>src/XmlNotepad.sln</code> into VS 2019.</li>
+<li>Select Debug or Release and target "Any CPU".</li>
+<li>Run Build Solution.</li>
+</ul>
+<h3 id="debug-the-app">Debug the app<a class="headerlink" href="#debug-the-app" title="Permanent link">#</a></h3>
+<ul>
+<li>Right click the <code>Application</code> project and select <code>Set as Startup Project</code>.</li>
+<li>Select Debug configuration.</li>
+<li>Press F5 to start debugging.</li>
+</ul>
+<h3 id="test-the-app">Test the app<a class="headerlink" href="#test-the-app" title="Permanent link">#</a></h3>
+<p>After building the app:</p>
+<ul>
+<li>Right click the <code>UnitTests</code> project and select <code>Run tests</code>.</li>
+</ul>
+<p>This is a GUI test, so do not move your mouse or type on your keyboard or let your
+screen lock until this test is completed.  Total test run time is about 12 minutes.</p>
+<h3 id="buildtasks">BuildTasks<a class="headerlink" href="#buildtasks" title="Permanent link">#</a></h3>
+<p>The <code>BuildTasks</code> project contains special MSBuild task that is used to synchronize the <code>Version.props</code> information
+across multiple places so you can edit the version number there be sure to update both the <code>ApplicationRevision</code>
+and the <code>ApplicationVersion</code> so that the final number in the <code>ApplicationVersion</code> matches the <code>ApplicationRevision</code>.</p>
+<pre><code>    &lt;ApplicationRevision&gt;36&lt;/ApplicationRevision&gt;
+    &lt;ApplicationVersion&gt;2.8.0.36&lt;/ApplicationVersion&gt;
+</code></pre>
+<p>Then when you do a build the following will be updated automatically:</p>
+<ol>
+<li>The <code>Version.cs</code> file which sets the assembly version for all projects in the solution.</li>
+<li>The WIX based setup file <code>Product.wxs</code>.</li>
+<li>The windows package manifest file <code>Package.appxmanifest</code>.</li>
+<li>The updates.xml file.</li>
+<li>The readme.htm file.</li>
+</ol>
+<p>You will also have to restart Visual Studio so that the new versions are picked up by the ClickOnce
+deployment information in  <code>Application.csproj</code>.</p>
+<p><strong>Note</strong>: if you change the <code>SyncVersions.cs</code> code, and build a new DLL you will need to close VS, and copy the
+resulting <code>BuildTasks\bin\Debug\XmlNotepadBuildTasks.dll</code> to <code>BuildTasks\XmlNotepadBuildTasks.dll</code>, then reload the
+XmlNotepad.sln. This is done this way because Visual Studio will lock this file after doing a build, so you wouldn't be
+able to compile the new version.</p>
+<h3 id="publish-the-clickonce-installer">Publish the ClickOnce installer<a class="headerlink" href="#publish-the-clickonce-installer" title="Permanent link">#</a></h3>
+<p>Open the <code>Application</code> project properties and you will see a Publish option there. This will place
+the publish bits in a folder named <code>d:\git\lovettchris\XmlNotepad\publish\</code> you can change this on
+the Project properties.  It is recommended you use strongly signed bits.  The signing certificate is
+specified using environment variable <code>MYKEYFILE</code>, but you can build, debug and test XML Notepad
+without this environment variable set.</p>
+<p>This setup provides the ClickOnce installed version of XML Notepad installable from <a href="https://lovettsoftwarestorage.blob.core.windows.net/downloads/XmlNotepad/XmlNotepad.application">lovettsoftware</a>.  This is the most convenient installer since it is
+a single click and also provide auto-updating whenever a new version is published.</p>
+<h3 id="build-the-setup-msi-installer">Build the setup .msi installer<a class="headerlink" href="#build-the-setup-msi-installer" title="Permanent link">#</a></h3>
+<p>After building the <code>Release</code> configuration of <code>XmlNotepad.sln</code> load the <code>XmlNotepadSetup.sln</code>.  This
+solution uses the <a href="https://wixtoolset.org/">WIX Toolset</a> to build a standalone windows .msi
+installer. To build that setup you will need to install the WIX toolset then the <a href="https://marketplace.visualstudio.com/items?itemName=WixToolset.WixToolsetVisualStudio2019Extension">Wix Toolset Visual
+Studio 2019
+Extension</a>.</p>
+<p>Then right click the <code>XmlNotepadSetup</code> project and select "build".  This will produce an .msi installer in the
+XmlNotepadSetup\bin\release folder.  There is also a <code>sign.cmd</code> script invoked by this build that will try and sign the
+resulting .msi using the certificate installed by the author.  This step will only work for the author who owns the
+certificate.</p>
+<p>This <code>msi</code> installer gives folks the option to install XML Notepad on machines that are isolated from the internet and
+there are quite a few customers who have requested this, which is why it exists.</p>
+<h3 id="build-the-winget-setup-package">Build the winget setup package<a class="headerlink" href="#build-the-winget-setup-package" title="Permanent link">#</a></h3>
+<p>The <code>winget</code> setup package is built by the <code>XmlNotepadPackage</code> project in the <code>XmlNotepadSetup.sln</code>
+solution.  Right click this project in the Solution Explorer and select <code>Publish</code> and <code>Create App
+Packages</code>.  Choose Sideloading, and the package files will be written to the
+XmlNotepadPackage\AppPackages folder.  These can then be uploaded to the server hosting these
+packages and you can then update the manifest in
+<a href="https://github.com/microsoft/winget-pkgs/tree/master/manifests/m/Microsoft/XMLNotepad">winget-pkgs</a>.</p>
+<p>This package provides the <code>winget install xmlnotepad</code> setup option.</p>
+<h3 id="publishing-the-bits-to-azure-blob-store">Publishing the bits to Azure Blob Store<a class="headerlink" href="#publishing-the-bits-to-azure-blob-store" title="Permanent link">#</a></h3>
+<p>The <code>publish.cmd</code> script then takes all the above built binaries and collects them together and uploads
+them to the appropriate places in Azure using <a href="https://github.com/clovett/tools/tree/master/AzurePublishClickOnce">AzurePublishClickOnce</a> and it also prepares a new manifest for <code>winget-pkgs</code>.
+This step uses an environment variable named <code>LOVETTSOFTWARE_STORAGE_CONNECTION_STRING</code> to find the
+Azure storage account.</p>
+<h3 id="design">Design<a class="headerlink" href="#design" title="Permanent link">#</a></h3>
+<p>See <a href="design/">XML Notepad Design </a> for more detailed information about how this application is designed.</p>
+<h3 id="issues">Issues<a class="headerlink" href="#issues" title="Permanent link">#</a></h3>
+<p>Feedback and suggestions are welcome, just use the <a href="https://github.com/microsoft/XmlNotepad/issues">GitHub  issues
+list</a>.  Pull requests are also welcome, in fact, a number of good pull
+requests have already been merged.  Thanks to all who are helping to make XML notepad a great tool!</p>
+
+    <br>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="design/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="design/" class="btn btn-xs btn-link">
+        Design
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../help/analytics/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../help/analytics/" class="btn btn-xs btn-link">
+        Analytics
+      </a>
+    </div>
+    
+  </div>
+
+      <br>
+  </div>
+</div>
+
+<footer class="wm-page-content">
+
+  
+<div class='footer-content'>
+  <div class="container-fluid">
+    <div class="col-sm-8 text-left footnote-copy">
+       XML Notepad
+    </div>
+    <div class="col-sm-4 text-right footnote-copy">
+      <ul class="list-unstyled list-inline">
+        <li><a href="https://www.microsoft.com/" target="_blank"><img class="img-responsive" width="140" src="http://microsoft.github.io/XmlNotepad/assets/images/microsoft.svg" alt="Microsoft"> </a></li>
+      </ul>
+    </div>
+  </div>
+  <li><span id="copyright"></span></li>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/noraj/mkdocs-windmill-dark">Windmill Dark</a> theme by noraj.</p>
+</div>
+
+</footer>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('table').each(function () {
+        $(this).addClass("table");
+        $(this).addClass("table-bordered");
+        $(this).addClass("table-striped");
+        $(this).addClass("table-condensed");
+      });
+
+    });
+</script>
+
+</body>
+</html>

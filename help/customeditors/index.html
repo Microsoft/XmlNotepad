@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://microsoft.github.io/XmlNotepad/help/customeditors/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Custom Editors - XmlNotepad</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../css/main.css" rel="stylesheet">
+    <link href="../../css/syntax.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Custom Editors", url: "#_top", children: [
+          ]},
+          {title: "Custom Builders", url: "#custom-builders", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script>
+      <script src="https://www.googletagmanager.com/gtag/js?id=UA-89203408-1"></script>
+      <script src="https://consentdeliveryfd.azurefd.net/mscc/lib/v2/wcp-consent.js"></script>
+      <script src="../../assets/js/cookies.js"></script>
+      <script src="../../assets/js/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<div id="cookie-banner"></div>
+
+
+<div class="wrapper wm-page-content">
+  <div class="container-fluid">
+    <a name="_top"></a>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../clipboard/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../clipboard/" class="btn btn-xs btn-link">
+        Clipboard
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../validation/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../validation/" class="btn btn-xs btn-link">
+        Validation
+      </a>
+    </div>
+    
+  </div>
+
+      
+
+      <h2 id="custom-editors">Custom Editors<a class="headerlink" href="#custom-editors" title="Permanent link">#</a></h2>
+<p>If an XML schema is provided for validation then that schema can also define custom editors on specific <code>&lt;xsd:simpleType&gt;</code> tags.</p>
+<p>A default custom editor is provided for the simpleTypes xsd:date xsd:dateTime and xsd:time. Any element or attribute of this type will be edited using the WinForms DateTimePicker, configured for the current system locale, for example:</p>
+<p><img alt="datetime" src="../../assets/images/datetime.jpg" /></p>
+<h2 id="custom-builders">Custom Builders<a class="headerlink" href="#custom-builders" title="Permanent link">#</a></h2>
+<p>Custom Builders provide a button that appears at the top of the intellisense list, when the user clicks on that button it invokes the builder to edit the value, which usually pops up a modal dialog.</p>
+<p>A custom builder for editing file names is provided and is automatically associated with the xsd:anyURI data type. You can associate this builder manually using the <code>vs:builder="XmlNotepad.UriBuilder"&gt;</code> attribute. When you edit an element of this type a button will appear titled "Browse..." at the top of the intellisense list and when you click on this button the WinForms OpenFileDialog will appear.</p>
+<p>A custom builder for editing colors is provided. But since there is no standard color type defined in XSD, you must specify the vs:builder attribute as shown in the following example:</p>
+<pre><code class="language-xml">&lt;xsd:simpleType  name=&quot;color&quot; vs:builder=&quot;XmlNotepad.ColorBuilder&quot;&gt;
+</code></pre>
+<p>Where the "vs" prefix is bound to the following namespace: <code>xmlns:vs="http://schemas.microsoft.com/Visual-Studio-Intellisense"</code>.</p>
+<p>If you build your own custom editors you will also need to specify the <code>vs:assembly="FontBuilder, Version=1.0.0.0, Culture=neutral, PublicKeyToken=007b972e7cff2ded, processorArchitecture=MSIL"</code> attribute to point to your assembly. XML Notepad will then load your assembly so it can find the specified types.</p>
+<p><img alt="Colors" src="../../assets/images/colors.jpg" /></p>
+<p>When you edit an element of this type a button will appear titled "Color Picker" at the top of the intellisense list and when you click on this button the WinForms ColorDialog will appear. The resulting color will then be serialized back to the XML string using the <code>ColorConverter</code>.</p>
+<p>You can implement your own builders by implementing <code>IXmlBuilder</code>and specifying your full class name in the <code>vs:builder</code> attribute.</p>
+<p>See also <a href="../schemas/">Schemas Dialog</a>.</p>
+
+    <br>
+      
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../clipboard/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../clipboard/" class="btn btn-xs btn-link">
+        Clipboard
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../validation/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../validation/" class="btn btn-xs btn-link">
+        Validation
+      </a>
+    </div>
+    
+  </div>
+
+      <br>
+  </div>
+</div>
+
+<footer class="wm-page-content">
+
+  
+<div class='footer-content'>
+  <div class="container-fluid">
+    <div class="col-sm-8 text-left footnote-copy">
+       XML Notepad
+    </div>
+    <div class="col-sm-4 text-right footnote-copy">
+      <ul class="list-unstyled list-inline">
+        <li><a href="https://www.microsoft.com/" target="_blank"><img class="img-responsive" width="140" src="http://microsoft.github.io/XmlNotepad/assets/images/microsoft.svg" alt="Microsoft"> </a></li>
+      </ul>
+    </div>
+  </div>
+  <li><span id="copyright"></span></li>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/noraj/mkdocs-windmill-dark">Windmill Dark</a> theme by noraj.</p>
+</div>
+
+</footer>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('table').each(function () {
+        $(this).addClass("table");
+        $(this).addClass("table-bordered");
+        $(this).addClass("table-striped");
+        $(this).addClass("table-condensed");
+      });
+
+    });
+</script>
+
+</body>
+</html>
